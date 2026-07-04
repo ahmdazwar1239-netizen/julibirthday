@@ -93,32 +93,37 @@ document.addEventListener('DOMContentLoaded', () => {
         if (index < 0 || index >= totalPages || index === currentPage) return;
 
         const goingForward = index > currentPage;
+        const oldPage = pages[currentPage];
+        const newPage = pages[index];
 
         // Exit current page
-        pages[currentPage].classList.remove('active');
+        oldPage.classList.remove('active');
         if (goingForward) {
-            pages[currentPage].classList.add('exit-left');
+            oldPage.classList.add('exit-left');
 
-            // After a tiny delay, remove exit class
+            // After a tiny delay, remove exit class from the CORRECT (old) page
             setTimeout(() => {
-                pages[currentPage].classList.remove('exit-left');
+                oldPage.classList.remove('exit-left');
             }, 50);
         }
+
+        // Make sure the incoming page has no leftover state from a previous transition
+        newPage.classList.remove('exit-left');
 
         // Activate new page
         currentPage = index;
         
         // Set initial position for entrance
-        pages[currentPage].style.transform = goingForward 
+        newPage.style.transform = goingForward 
             ? 'translateX(60px) scale(0.95)' 
             : 'translateX(-60px) scale(0.95)';
         
         // Force reflow
-        pages[currentPage].offsetHeight;
+        newPage.offsetHeight;
         
         // Remove inline style to let CSS transition take over
-        pages[currentPage].style.transform = '';
-        pages[currentPage].classList.add('active');
+        newPage.style.transform = '';
+        newPage.classList.add('active');
 
         // Update dots
         dots.forEach((d, i) => {
