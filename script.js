@@ -96,12 +96,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Exit current page
         pages[currentPage].classList.remove('active');
-        pages[currentPage].classList.add(goingForward ? 'exit-left' : '');
+        if (goingForward) {
+            pages[currentPage].classList.add('exit-left');
 
-        // After a tiny delay, remove exit class
-        setTimeout(() => {
-            pages[currentPage].classList.remove('exit-left');
-        }, 50);
+            // After a tiny delay, remove exit class
+            setTimeout(() => {
+                pages[currentPage].classList.remove('exit-left');
+            }, 50);
+        }
 
         // Activate new page
         currentPage = index;
