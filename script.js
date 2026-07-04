@@ -27,16 +27,16 @@ const slidesData = [
     subtext: "Selamat ulang tahun ke-20, Julita! Semoga umur yang baru ini bawa lebih banyak progress, lebih banyak PR baru, dan lebih banyak alasan buat bangga sama diri sendiri."
   },
 
-  // 2. ABOUT HER (gym / sporty)
+  // 2. ABOUT HER (balance: strong + soft)
   {
     type: "stat-list",
     eyebrow: "Kartu Statistik",
     headline: `Yang Bikin Dia<br><span class="accent">Beda</span>`,
     stats: [
-      { num: "01", label: "Rajin ke gym, konsisten latihan" },
-      { num: "02", label: "Aktif olahraga, energinya gak abis-abis" },
-      { num: "03", label: "Badas dari dalam, gak alay-alay amat" },
-      { num: "04", label: "Tetap down to earth walau keren" }
+      { num: "01", label: "Konsisten sama apapun yang dia jalanin, termasuk latihan" },
+      { num: "02", label: "Punya sisi lembut yang gak selalu keliatan" },
+      { num: "03", label: "Kuat, tapi bukan berarti gak boleh dimanjain" },
+      { num: "04", label: "Tetap jadi dirinya sendiri walau keren" }
     ]
   },
 
@@ -113,8 +113,8 @@ const slidesContainer = document.getElementById("slides");
 const progressBar = document.getElementById("progressBar");
 let current = 0;
 
-function iconBarbell(){
-  return `<div class="barbell"><div class="plate small"></div><div class="plate"></div><div class="bar"></div><div class="plate"></div><div class="plate small"></div></div>`;
+function iconFlourish(){
+  return `<div class="flourish"><div class="dot"></div><div class="line"></div><div class="dot big"></div><div class="line"></div><div class="dot"></div></div>`;
 }
 
 function renderPhotoFrame(image, cornerTag){
@@ -130,7 +130,7 @@ function buildSlideHTML(slide, index){
     case "cover":
       return `
         <div class="cover-badge">${slide.badge}</div>
-        ${iconBarbell()}
+        ${iconFlourish()}
         <h1 class="headline">${slide.headline}</h1>
         <p class="subtext">${slide.subtext}</p>
         <div class="tap-hint">${slide.hint}</div>
@@ -167,7 +167,7 @@ function buildSlideHTML(slide, index){
     case "message":
       return `
         <div class="eyebrow">${slide.eyebrow}</div>
-        ${iconBarbell()}
+        ${iconFlourish()}
         <h2 class="headline">${slide.headline}</h2>
         <p class="body-text editable">${slide.body}</p>
       `;
@@ -280,3 +280,38 @@ function toggleAudio(forcePlay){
 soundBtn.addEventListener("click", () => toggleAudio(false));
 
 renderAll();
+
+// ---------- ENVELOPE INTRO ----------
+
+const envelopeScreen = document.getElementById("envelopeScreen");
+const envelope = document.getElementById("envelope");
+const envelopeFlap = document.getElementById("envelopeFlap");
+const envelopeSeal = document.querySelector(".envelope-seal");
+const envelopeHint = document.getElementById("envelopeHint");
+const letter = document.getElementById("letter");
+const appEl = document.getElementById("app");
+let envelopeOpened = false;
+
+function openEnvelope(){
+  if(envelopeOpened) return;
+  envelopeOpened = true;
+
+  envelopeHint.classList.add("fade");
+  envelopeSeal.classList.add("hidden");
+  envelopeFlap.classList.add("open");
+
+  // slight delay so flap finishes opening before letter rises
+  setTimeout(() => {
+    letter.classList.add("rise");
+  }, 350);
+
+  // reveal the wrapped app after the letter animation
+  setTimeout(() => {
+    envelopeScreen.classList.add("hide");
+    appEl.classList.add("visible");
+    // try to start music right after opening (best-effort, may be blocked)
+    toggleAudio(true);
+  }, 1500);
+}
+
+envelope.addEventListener("click", openEnvelope);
