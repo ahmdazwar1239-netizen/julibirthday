@@ -3,6 +3,8 @@
   --bg-2: #10140f;
   --lime: #c6ff3d;
   --coral: #ff4d6d;
+  --blush: #ffb6c8;
+  --cream: #f3e9dc;
   --ink: #f3f3ec;
   --muted: #8a9086;
   --line: rgba(243,243,236,0.14);
@@ -31,6 +33,162 @@ html,body{
   background:
     radial-gradient(120% 90% at 50% -10%, rgba(198,255,61,0.10), transparent 60%),
     var(--bg);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .7s ease;
+}
+.app.visible{
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ===================== ENVELOPE INTRO ===================== */
+.envelope-screen{
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  width: 100%;
+  height: 100dvh;
+  max-width: 480px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+  background:
+    radial-gradient(130% 100% at 50% 0%, rgba(255,182,200,0.12), transparent 60%),
+    var(--bg);
+  transition: opacity .6s ease, visibility .6s ease;
+}
+.envelope-screen.hide{
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.envelope-wrap{
+  perspective: 1200px;
+}
+
+.envelope{
+  position: relative;
+  width: 230px;
+  height: 150px;
+  cursor: pointer;
+}
+
+.envelope-back{
+  position: absolute;
+  inset: 0;
+  border-radius: 10px;
+  background: linear-gradient(160deg, #1a1410, #0f0c09);
+  border: 1px solid rgba(255,182,200,0.25);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+}
+
+.envelope-back::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius: 10px;
+  background:
+    linear-gradient(135deg, transparent 49.5%, rgba(255,182,200,0.18) 50%, transparent 50.5%),
+    linear-gradient(-135deg, transparent 49.5%, rgba(255,182,200,0.18) 50%, transparent 50.5%);
+}
+
+.letter{
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  bottom: 8px;
+  height: 118px;
+  border-radius: 8px;
+  background: linear-gradient(170deg, var(--cream), #e8dcc9);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px;
+  transform: translateY(0%);
+  transition: transform 1s cubic-bezier(.2,.8,.2,1);
+}
+
+.letter.rise{
+  transform: translateY(-135%) scale(1.04);
+}
+
+.letter-content{
+  text-align: center;
+}
+
+.letter-line{
+  margin: 0;
+  font-family: var(--body);
+  font-size: 13px;
+  font-weight: 600;
+  color: #4a3b2c;
+  letter-spacing: .01em;
+}
+.letter-line-2{
+  margin-top: 6px;
+  font-weight: 500;
+  color: #7a6650;
+  font-size: 12px;
+}
+
+.envelope-flap{
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 78px;
+  z-index: 3;
+  background: linear-gradient(160deg, #241b16, #140f0c);
+  border: 1px solid rgba(255,182,200,0.25);
+  border-bottom: none;
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  transform-origin: top center;
+  transform: rotateX(0deg);
+  transition: transform .7s cubic-bezier(.3,.7,.3,1);
+}
+
+.envelope-flap.open{
+  transform: rotateX(180deg);
+  z-index: 1;
+}
+
+.envelope-seal{
+  position: absolute;
+  top: 46px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  background: var(--blush);
+  color: #3a2a2a;
+  font-family: var(--display);
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 4;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  transition: opacity .4s ease, transform .4s ease;
+}
+.envelope-seal.hidden{
+  opacity: 0;
+  transform: translateX(-50%) scale(.4);
+}
+
+.envelope-hint{
+  font-size: 11px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  transition: opacity .4s ease;
+}
+.envelope-hint.fade{
+  opacity: 0;
 }
 
 @media (min-width: 481px){
@@ -168,24 +326,24 @@ html,body{
   border-radius: 4px;
 }
 
-/* barbell divider - signature element */
-.barbell{
+/* flourish divider - signature element (soft, feminine) */
+.flourish{
   display:flex;
   align-items:center;
-  gap: 6px;
+  gap: 8px;
   margin: 18px 0 22px;
 }
-.barbell .plate{
-  width: 8px; height: 26px;
-  background: var(--lime);
-  border-radius: 2px;
+.flourish .dot{
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--blush);
 }
-.barbell .plate.small{ height: 16px; width:6px; opacity:.6; }
-.barbell .bar{
+.flourish .dot.big{ width: 9px; height: 9px; background: var(--lime); }
+.flourish .line{
   flex:1;
-  height: 3px;
-  background: var(--line);
-  max-width: 60px;
+  height: 1px;
+  background: linear-gradient(90deg, var(--blush), var(--line));
+  max-width: 70px;
 }
 
 /* photo frame */
@@ -314,7 +472,7 @@ html,body{
   font-family: var(--display);
   font-size: 64px;
   line-height: .95;
-  background: linear-gradient(90deg, var(--lime), var(--coral));
+  background: linear-gradient(90deg, var(--lime), var(--blush));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
