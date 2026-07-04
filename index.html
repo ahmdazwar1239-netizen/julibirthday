@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Julita Wrapped — 20</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app" id="app">
+
+  <!-- progress segments -->
+  <div class="progress-bar" id="progressBar"></div>
+
+  <!-- tap zones -->
+  <div class="tap-zone tap-left" id="tapLeft" aria-label="Sebelumnya"></div>
+  <div class="tap-zone tap-right" id="tapRight" aria-label="Selanjutnya"></div>
+
+  <!-- sound toggle -->
+  <button class="sound-btn" id="soundBtn" aria-label="Suara">
+    <svg id="iconSoundOn" viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-.77-3.29-2-4.32v8.64c1.23-1.03 2-2.55 2-4.32z"/></svg>
+    <svg id="iconSoundOff" viewBox="0 0 24 24" width="20" height="20" style="display:none"><path fill="currentColor" d="M16.5 12A4.5 4.5 0 0014 8v1.79l2.48 2.48c.01-.09.02-.18.02-.27zM19 12c0 .82-.15 1.61-.41 2.34l1.53 1.53c.56-1.17.88-2.48.88-3.87 0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06a8.99 8.99 0 003.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg>
+  </button>
+  <audio id="bgAudio" src="2on.mp3" loop preload="none"></audio>
+
+  <!-- SLIDES -->
+  <div class="slides" id="slides"></div>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
